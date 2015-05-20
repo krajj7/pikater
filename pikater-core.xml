@@ -17,7 +17,7 @@
 
     <!-- TASK - resolve Ivy dependencies and copy them to the main lib folder -->
     <target name="resolve" description="retrieve dependencies with ivy">
-        <ivy:retrieve conf="default" pattern="${lib-folder}/[artifact](-[classifier]).[ext]"/>
+        <ivy:retrieve conf="compile_core" pattern="${lib-folder}/[artifact](-[classifier]).[ext]"/>
     </target>
     
     <!-- TASK - compile project using the given classpath just like Eclipse would -->
@@ -35,13 +35,13 @@
         <!-- compile java code (java code only - see below) -->
         <javac destdir="${build-folder}">
             <src path="${src-folder}" />
-            <src path="${test-folder}" />
+        	<src path="${test-folder}" />
             <classpath refid="class.path" />
         </javac>
         <!-- the above command doesn't copy non-java resources so do that manually -->
         <copy todir="${build-folder}">
             <fileset dir="${src-folder}" excludes="**/*.java"/>
+        	<fileset dir="${test-folder}" excludes="**/*.java"/>
         </copy>
     </target>
-
 </project>
